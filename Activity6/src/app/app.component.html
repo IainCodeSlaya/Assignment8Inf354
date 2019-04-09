@@ -1,0 +1,42 @@
+<h1>School Grade Report</h1>
+
+<div>
+  <mat-form-field>
+    <mat-select[(value)]="selection">
+      <mat-option *ngFor="let option of options" [value]="option.id">{{option.text}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div>
+  <select [(ngModel)]="selection">
+    <option *ngFor="let option of options" [value]="option.id">{{option.text}}</option>
+  </select>
+  <br>
+  <br>
+  <button mat-raised-button color="primary" (click)="submitRequest()">Generate</button>
+  <button mat-raised-button color="accent" (click)="submitRequest(1)">downlaod pdf</button>
+  <button mat-raised-button color="accent" (click)="submitRequest(2)">download word</button>
+</div>
+
+<div *ngIf="chart" class="reportChart">
+  <canvas id = "canvas">{{ chart }}</canvas>
+</div>
+
+<div *ngIf="courses">
+  <div class="gradeTable">
+    <div *ngFor="let item of courses">
+      <table class="container">
+          <caption><strong>{{item.Title}}</strong>(Average: {{ item.Average/100 | percent : '1.2-2'}})</caption>
+          <tr>
+            <th>student</th>
+            <th>grade</th>
+          </tr>
+          <tr *ngFor="lets grade of item.StudentGrades">
+            <td>{{grade.student}}</td>
+            <td>{{grade.grade}}</td>
+          </tr>
+      </table>
+    </div>   
+  </div>
+</div>
